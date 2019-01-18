@@ -1,0 +1,20 @@
+diff --git a/include/snmp_pp/config_snmp_pp.h b/include/snmp_pp/config_snmp_pp.h
+index d0fec93..fc317cc 100644
+--- a/include/snmp_pp/config_snmp_pp.h
++++ b/include/snmp_pp/config_snmp_pp.h
+@@ -112,13 +112,13 @@
+ 
+ // define _NO_LOGGING if you do not want any logging output 
+ // (increases performance drastically and minimizes memory consumption)
+-#if 1
++#if 0
+ #undef _NO_LOGGING
+ #else
+ #define _NO_LOGGING
+ #endif
+ 
+-#if 1
++#if 0
+ #ifndef WITHOUT_LOG_PROFILES
+ #define WITH_LOG_PROFILES 1
+ #endif
