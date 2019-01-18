@@ -23,7 +23,8 @@ RDEPENDS_${PN} = "\
 	curl \
 	vsftpd \
 	net-snmp \
-	slabhid \
+	libslabhid \
+	snmp++ \
 "
 
 RDEPENDS_packagegroup-shinima-mandatory = "\
