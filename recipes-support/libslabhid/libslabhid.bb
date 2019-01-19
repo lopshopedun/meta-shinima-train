@@ -1,31 +1,29 @@
-# Recipe created by recipetool
-# This is the basis of a recipe and may need further editing in order to be fully functional.
-# (Feel free to remove these comments when editing.)
-#
-# Unable to find any files that looked like license statements. Check the accompanying
-# documentation and source headers and set LICENSE and LIC_FILES_CHKSUM accordingly.
-#
-# NOTE: LICENSE is being set to "CLOSED" to allow you to at least start building - if
-# this is not accurate with respect to the licensing of the software being built (it
-# will not be in most cases) you must specify the correct value before using this
-# recipe for anything other than initial testing/development!
-LICENSE = "CLOSED"
-LIC_FILES_CHKSUM = ""
+DESCRIPTION = "libraries libslabhid* to manage variable attenuator in debug configuration of shinima-train project"
+LICENSE = "MIT"
+PV = "1"
+PR = "r0"
 
-# No information for SRC_URI yet (only an external source tree was specified)
-SRC_URI = ""
+DEPENDS = "libusb1"
 
-# NOTE: no Makefile found, unable to determine what needs to be done
+SRC_URI = " \
+	file://usr/lib/libslabhiddevice.a \
+	file://usr/lib/libslabhiddevice.so.1.0 \
+	file://usr/lib/libslabhidtouart.a \
+	file://usr/lib/libslabhidtouart.so.1.0 \
+"
 
-do_configure () {
-	# Specify any needed configure commands here
-}
-
-do_compile () {
-	# Specify compilation commands here
-}
+FILES_SOLIBSDEV = ""
+S = "${WORKDIR}"
 
 do_install () {
-	# Specify install commands here
+	install -d ${D}${libdir}
+	install -m 0755 ${WORKDIR}/usr/lib/*			${D}${libdir}
+	ln -sf ${libdir}/libslabhiddevice.so.1.0	${D}${libdir}/libslabhiddevice.so.1
+	ln -sf ${libdir}/libslabhidtouart.so.1.0	${D}${libdir}/libslabhidtouart.so.1
 }
 
+FILES_${PN} += "${libdir}/*"
+INSANE_SKIP_${PN} += "dev-so"
+
+do_configure[noexec] = "1"
+do_compile[noexec] = "1"
