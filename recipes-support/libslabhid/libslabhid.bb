@@ -1,5 +1,5 @@
 DESCRIPTION = "libraries libslabhid* to manage variable attenuator in debug configuration of shinima-train project"
-LICENSE = "MIT"
+LICENSE = "BSD"
 PV = "1"
 PR = "r0"
 
