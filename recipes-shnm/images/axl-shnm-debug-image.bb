@@ -6,4 +6,4 @@ IMAGE_INSTALL += " \
 	packagegroup-shinima-debug \
 "
 
-export IMAGE_BASENAME = "shnm-debug-image"
+export IMAGE_BASENAME = "axl-shnm-debug-image"

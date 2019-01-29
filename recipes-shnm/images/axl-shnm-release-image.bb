@@ -6,4 +6,4 @@ IMAGE_INSTALL += " \
 	packagegroup-shinima-release \
 "
 
-export IMAGE_BASENAME = "shnm-release-image"
+export IMAGE_BASENAME = "axl-shnm-release-image"

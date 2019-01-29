@@ -23,16 +23,29 @@ RDEPENDS_${PN} = "\
 	curl \
 	vsftpd \
 	net-snmp \
-	slabhid \
+	libslabhid \
+	snmp++ \
 "
-
+# add iptables later
 RDEPENDS_packagegroup-shinima-mandatory = "\
 	libcap \
 	libcap-ng \
 	gpsd \
+	python-pygps \
+	gps-utils \
+	gpsd-conf \
 	minicom \
 "
 
 RRECOMMENDS_packagegroup-shinima-mandatory = ""
 RRECOMMENDS_packagegroup-shinima-debug = ""
 
+pkg_postinst_${PN}() {
+    if [ x"$D" = "x" ]; then
+        # Actions to carry out on the device go here
+	# Soft link creation to our Qt's apps could run:
+	ln -sf /lib/ld-linux-armhf.so.3 /lib/ld-linux.so.3
+    else
+        exit 1
+    fi
+}
