@@ -35,6 +35,7 @@ RDEPENDS_packagegroup-shinima-mandatory = "\
 	gps-utils \
 	gpsd-conf \
 	minicom \
+	rsyslog \
 "
 
 RRECOMMENDS_packagegroup-shinima-mandatory = ""
