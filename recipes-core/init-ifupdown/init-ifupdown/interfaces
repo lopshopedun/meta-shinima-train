@@ -21,10 +21,10 @@ auto eth0
 iface eth0 inet dhcp
 auto eth1
 iface eth1 inet static
-	address 192.168.0.254
+	address 192.168.11.247
 	netmask 255.255.255.0
-	network 192.168.0.0
-#	gateway 192.168.0.1
+#	network 192.168.11.0
+	gateway 192.168.11.241
 
 # Ethernet/RNDIS gadget (g_ether)
 # ... or on host side, usbnet and random hwaddr

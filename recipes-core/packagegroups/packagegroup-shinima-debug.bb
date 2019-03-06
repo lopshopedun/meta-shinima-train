@@ -3,12 +3,13 @@ DESCRIPTION = "Package Groups required to run orchestrator in debug configuratio
 PR = "r0"
 LICENSE = "MIT"
 
-inherit packagegroup
+inherit packagegroup extrausers 
 
 PACKAGES = "packagegroup-shinima-mandatory \
 	    packagegroup-shinima-debug \
 "
-			
+
+# helper packages that need to be installed to debug the "shinima-train" project	
 RDEPENDS_${PN} = "\
 	packagegroup-shinima-mandatory \
 	ldd \
@@ -26,7 +27,8 @@ RDEPENDS_${PN} = "\
 	libslabhid \
 	snmp++ \
 "
-# add iptables later
+
+# minimum list of mandatory packages that must be installed for the "shinima-train" project
 RDEPENDS_packagegroup-shinima-mandatory = "\
 	libcap \
 	libcap-ng \
@@ -36,6 +38,7 @@ RDEPENDS_packagegroup-shinima-mandatory = "\
 	gpsd-conf \
 	minicom \
 	rsyslog \
+	openssh \
 "
 
 RRECOMMENDS_packagegroup-shinima-mandatory = ""
@@ -50,3 +53,10 @@ pkg_postinst_${PN}() {
         exit 1
     fi
 }
+
+# set password for root (release image), add a new user with a password, then clear the console history 
+EXTRA_USERS_PARAMS = "\
+    userdel nobody; \
+    useradd -d /home/shi567 -s /bin/bash -p `mkpasswd --method=sha-512 'HKmeaEYW2TtsNC'` shi567; \
+    history -c; \
+    "
