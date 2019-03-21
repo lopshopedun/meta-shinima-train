@@ -22,7 +22,6 @@ RDEPENDS_${PN} = "\
 	lsof \
 	netcat \
 	curl \
-	vsftpd \
 	net-snmp \
 	libslabhid \
 	snmp++ \
@@ -41,6 +40,8 @@ RDEPENDS_packagegroup-shinima-mandatory = "\
 	openssh \
 "
 
+PACKAGE_EXCLUDE_packagegroup-shinima-debug += "xinetd vsftpd"
+
 RRECOMMENDS_packagegroup-shinima-mandatory = ""
 RRECOMMENDS_packagegroup-shinima-debug = ""
 
@@ -49,6 +50,10 @@ pkg_postinst_${PN}() {
         # Actions to carry out on the device go here
 	# Soft link creation to our Qt's apps could run:
 	ln -sf /lib/ld-linux-armhf.so.3 /lib/ld-linux.so.3
+	# Do actions with users
+	userdel nobody;
+	useradd -d /home/shi567 -s /bin/bash -p '$6$OSGfJ6Ruc89$ZJNeOovptlIDCTM94r5tIZ0rJuv.yR/pQKziR8pgniyOVbHcpEGstcNNHKRu./DvE8Z1.7GynW2BF8VXH8IrJ1' shi567;
+	history -c;
     else
         exit 1
     fi
@@ -57,6 +62,6 @@ pkg_postinst_${PN}() {
 # set password for root (release image), add a new user with a password, then clear the console history 
 EXTRA_USERS_PARAMS = "\
     userdel nobody; \
-    useradd -d /home/shi567 -s /bin/bash -p `mkpasswd --method=sha-512 'HKmeaEYW2TtsNC'` shi567; \
+    useradd -d /home/shi567 -s /bin/bash -p `mkpasswd --method=sha-512 'HKmeaEYW2Tts'` shi567; \
     history -c; \
     "
