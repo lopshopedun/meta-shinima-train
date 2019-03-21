@@ -22,7 +22,6 @@ RDEPENDS_${PN} = "\
 	lsof \
 	netcat \
 	curl \
-	vsftpd \
 	net-snmp \
 	libslabhid \
 	snmp++ \
@@ -40,6 +39,8 @@ RDEPENDS_packagegroup-shinima-mandatory = "\
 	rsyslog \
 	openssh \
 "
+
+PACKAGE_EXCLUDE_packagegroup-shinima-debug += "xinetd vsftpd"
 
 RRECOMMENDS_packagegroup-shinima-mandatory = ""
 RRECOMMENDS_packagegroup-shinima-debug = ""
