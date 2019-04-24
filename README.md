@@ -73,6 +73,9 @@ Finally, now you can build `axl-shnm-debug-image` or `axl-shnm-release-image` im
 user@host:~/ifb/fsl-community-bsp/build$ bitbake axl-shnm-debug-image
 ```
 
+### TO-DO
+* Replace `timeout` busybox utility with `timeout` from coreutils 
+
 ### Mantainer(s)
 
 Dmitry Trefilov <d.trefilov@dokltd.ru>, <vmp.2012@ya.ru>

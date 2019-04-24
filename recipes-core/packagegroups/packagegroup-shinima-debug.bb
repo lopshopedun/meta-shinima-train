@@ -1,17 +1,16 @@
-SUMMARY = "Custom Package Groups for shinima-train project"
-DESCRIPTION = "Package Groups required to run orchestrator in debug configuration"
+SUMMARY = "Debug Package Group for shinima project"
+DESCRIPTION = "Helper packages that need to be installed to debug the shinima project on real or test equipment"
 PR = "r0"
-LICENSE = "MIT"
+LICENSE = "MIT" 
 
-inherit packagegroup extrausers 
+inherit packagegroup
 
-PACKAGES = "packagegroup-shinima-mandatory \
-	    packagegroup-shinima-debug \
+PACKAGES = "packagegroup-shinima-minimal \
+	packagegroup-shinima-debug \
 "
-
-# helper packages that need to be installed to debug the "shinima-train" project	
+	
 RDEPENDS_${PN} = "\
-	packagegroup-shinima-mandatory \
+	packagegroup-shinima-minimal \
 	ldd \
 	file \
 	ltrace \
@@ -19,16 +18,16 @@ RDEPENDS_${PN} = "\
 	dstat \
 	tcpdump \
 	valgrind \
+	gdb \
 	lsof \
 	netcat \
+	htop \
 	curl \
-	net-snmp \
 	libslabhid \
-	snmp++ \
 "
 
-# minimum list of mandatory packages that must be installed for the "shinima-train" project
-RDEPENDS_packagegroup-shinima-mandatory = "\
+# Minimum group of packets with which the shinima project can be successfully run
+RDEPENDS_packagegroup-shinima-minimal = "\
 	libcap \
 	libcap-ng \
 	gpsd \
@@ -38,30 +37,23 @@ RDEPENDS_packagegroup-shinima-mandatory = "\
 	minicom \
 	rsyslog \
 	openssh \
+	net-snmp \
+	snmp++ \
+	jq \
 "
 
-PACKAGE_EXCLUDE_packagegroup-shinima-debug += "xinetd vsftpd"
+PACKAGE_EXCLUDE_packagegroup-shinima-debug += "wvdial ofono"
 
-RRECOMMENDS_packagegroup-shinima-mandatory = ""
+RRECOMMENDS_packagegroup-shinima-minimal = ""
 RRECOMMENDS_packagegroup-shinima-debug = ""
+
 
 pkg_postinst_${PN}() {
     if [ x"$D" = "x" ]; then
         # Actions to carry out on the device go here
 	# Soft link creation to our Qt's apps could run:
 	ln -sf /lib/ld-linux-armhf.so.3 /lib/ld-linux.so.3
-	# Do actions with users
-	userdel nobody;
-	useradd -d /home/shi567 -s /bin/bash -p '$6$OSGfJ6Ruc89$ZJNeOovptlIDCTM94r5tIZ0rJuv.yR/pQKziR8pgniyOVbHcpEGstcNNHKRu./DvE8Z1.7GynW2BF8VXH8IrJ1' shi567;
-	history -c;
     else
         exit 1
     fi
 }
-
-# set password for root (release image), add a new user with a password, then clear the console history 
-EXTRA_USERS_PARAMS = "\
-    userdel nobody; \
-    useradd -d /home/shi567 -s /bin/bash -p `mkpasswd --method=sha-512 'HKmeaEYW2Tts'` shi567; \
-    history -c; \
-    "
