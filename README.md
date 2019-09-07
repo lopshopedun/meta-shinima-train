@@ -1,8 +1,10 @@
-# Yocto custom layer for Shinima-train project
+# meta-shinima-train
+
+Yocto custom layer for [`shinima-train` project](https://bitbucket.org/rnd_gigabit/shinima-train).
 
 ### Description
 
-"Shinima-train" is project for chinese high speed railways where train's radio relays are switching between ground stations located on towers along the way of the train.
+"shinima-train" is project for chinese high speed railways where train's radio relays are switching between ground stations located on towers along the way of the train.
 
 The word "Shinima" is taken from the Internet meme "Shinima Hue Nyong" to emphasize the originality and my attitude to this project, and also that the name "china*-train*" has already been used several times in local discussions.
 
@@ -12,8 +14,11 @@ In other words, this layer is created to customize the default image from the Ax
 
 See [packagegroups](recipes-core/packagegroups) for reference.
 
-The images `axl-shnm-debug-image` and `axl-shnm-release-image` are associated with debug and release packagegroups, respectively.
+It's recommended to use VirtualBox Ubuntu 16.04 image (user: `osboxes.org`, passwd: `osboxes`) with already preinstalled Yocto environment. The image located on the [Gigabit server](\\Omv-dok\НИОКР\d.trefilov\VMs\16.04_job). 
 
+In this case go straight to the *Building image* paragraph.
+
+The repository path is `/home/osboxes/ifb125/project/fsl-community-bsp/sources/meta-shinima-train`.
 
 ### Setup Yocto environment from scratch
 
@@ -45,15 +50,17 @@ user@host:~/ifb/fsl-community-bsp$ cp -v /path/to/IFB125-Linux-bsp-V1.0.3/bla/bl
 user@host:~/ifb/fsl-community-bsp$ echo -e "\${BSPDIR}/sources/meta-axiomtek \\n\${BSPDIR}/sources/meta-shinima-train \\n" >> ./sources/base/conf/bblayers.conf
 ```
 
+Comment out a line `"INHERIT += "sanity"` in ./sources/poky/meta/conf/sanity.conf. 
+
+Also comment out lines containing unnecessary `meta-browser`, `meta-gnome`, `meta-ruby`, `meta-qt5` layers in `./sources/fsl-community-bsp.sh`.
+
+### Building image
+
 Run following command to setup build environment, and it will move you to `/build` folder:
 
 ```
 user@host:~/ifb/fsl-community-bsp$ DISTRO=poky MACHINE=rsb101 EULA=1 source fsl-setup-release.sh -b build
 ```
-
-Comment out a line `"INHERIT += "sanity"` in ./sources/poky/meta/conf/sanity.conf. 
-
-Also comment out lines containing unnecessary `meta-browser`, `meta-gnome`, `meta-ruby`, `meta-qt5` layers in ./sources/fsl-community-bsp.sh.
 
 Between reboots if you want build image or recipes again, always run command
 
@@ -67,14 +74,17 @@ Before building the image, check which layers will be built and, if there were u
 user@host:~/ifb/fsl-community-bsp/build$ bitbake-layers show-layers
 ```
 
-Finally, now you can build `axl-shnm-debug-image` or `axl-shnm-release-image` image:
+The images `axl-shnm-debug-image` and `axl-shnm-release-image` are associated with debug and release packagegroups, respectively.
+
+Finally, now you can build one of these images:
 
 ```
 user@host:~/ifb/fsl-community-bsp/build$ bitbake axl-shnm-debug-image
 ```
 
 ### TO-DO
-* Replace `timeout` busybox utility with `timeout` from coreutils 
+
+See [issues](https://bitbucket.org/rnd_gigabit/meta-shinima-train/issues)
 
 ### Mantainer(s)
 
